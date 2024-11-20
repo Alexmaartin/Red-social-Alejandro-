@@ -21,7 +21,7 @@ public class Main {
                     System.out.println("Ingrese el nombre de usuario:");
                     String nombreRegistro = scanner.nextLine();
                     redSocial.registrarUsuario(nombreRegistro.trim());   // .trim() para que a la hora de poner el nombre no falle si se cuela un espacio
-                    break; //aaaaaaaaaaaaaaaaaaaaaa
+                    break;
 
                 case 2: // Iniciar Sesión
                     if (redSocial.getActiveUser() == null) {
