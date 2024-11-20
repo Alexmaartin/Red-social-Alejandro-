@@ -27,7 +27,7 @@ public class Main {
                     if (redSocial.getActiveUser() == null) {
                         System.out.println("Ingrese su nombre de usuario:");
                         String nombreLogin = scanner.nextLine();
-                        redSocial.iniciarSesion(nombreLogin.trim());  //espacios
+                        redSocial.iniciarSesion(nombreLogin.trim());  // .trim() (Jose luis)
                         if (redSocial.getActiveUser() != null) {
                             menuPrincipal(redSocial, scanner);
                         }
