@@ -3,9 +3,9 @@ import java.util.Date;
 public class Comentario {
     private String texto;
     private Date fecha;
-    private Usuario usuario;
+    private User usuario;
 
-    public Comentario(String texto, Usuario usuario) {
+    public Comentario(String texto, User usuario) {
         this.texto = texto;
         this.fecha = new Date();
         this.usuario = usuario;

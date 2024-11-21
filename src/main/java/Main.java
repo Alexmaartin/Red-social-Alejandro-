@@ -20,14 +20,14 @@ public class Main {
                 case 1: // Registrarse
                     System.out.println("Ingrese el nombre de usuario:");
                     String nombreRegistro = scanner.nextLine();
-                    redSocial.registrarUsuario(nombreRegistro.trim());   // .trim() para que a la hora de poner el nombre no falle si se cuela un espacio
+                    redSocial.userRegistration(nombreRegistro.trim());   // .trim() para que a la hora de poner el nombre no falle si se cuela un espacio
                     break;
 
                 case 2: // Iniciar Sesión
                     if (redSocial.getActiveUser() == null) {
                         System.out.println("Ingrese su nombre de usuario:");
                         String nombreLogin = scanner.nextLine();
-                        redSocial.iniciarSesion(nombreLogin.trim());  // .trim() (Jose luis)
+                        redSocial.logIn(nombreLogin.trim());  // .trim() (Jose luis)
                         if (redSocial.getActiveUser() != null) {
                             menuPrincipal(redSocial, scanner);
                         }
@@ -37,7 +37,7 @@ public class Main {
                     break;
 
                 case 3: // Cerrar Sesión
-                    redSocial.cerrarSesion();
+                    redSocial.logOut();
                     break;
 
                 case 0: // Salir
@@ -55,7 +55,7 @@ public class Main {
     private static void menuPrincipal(RedSocial redSocial, Scanner scanner) {
         int opcion;
         do {
-            System.out.println("\n=== MENÚ PRINCIPAL ===");
+            System.out.println("\n=== MENÚ de USUARIO ===");
             System.out.println("1. Publicar Post");
             System.out.println("2. Comentar en Post");
             System.out.println("3. Seguir Usuario");
@@ -79,7 +79,7 @@ public class Main {
                     if (tipoPost == 1) {
                         System.out.println("Ingrese el contenido del post:");
                         String contenido = scanner.nextLine();
-                        redSocial.getActiveUser().agregarPost(new PostTexto(contenido, redSocial.getActiveUser()));
+                        redSocial.getActiveUser().addPost(new PostText(contenido, redSocial.getActiveUser()));
                     } else if (tipoPost == 2) {
                         System.out.println("Ingrese el título de la imagen:");
                         String titulo = scanner.nextLine();
@@ -87,7 +87,7 @@ public class Main {
                         int ancho = scanner.nextInt();
                         System.out.println("Ingrese el alto de la imagen:");
                         int alto = scanner.nextInt();
-                        redSocial.getActiveUser().agregarPost(new PostImagen(titulo, ancho, alto, redSocial.getActiveUser()));
+                        redSocial.getActiveUser().addPost(new PostImage(titulo, ancho, alto, redSocial.getActiveUser()));
                     } else if (tipoPost == 3) {
                         System.out.println("Ingrese el título del video:");
                         String tituloVideo = scanner.nextLine();
@@ -95,7 +95,7 @@ public class Main {
                         String calidad = scanner.nextLine();
                         System.out.println("Ingrese la duración del video (en segundos):");
                         int duracion = scanner.nextInt();
-                        redSocial.getActiveUser().agregarPost(new PostVideo(tituloVideo, calidad, duracion, redSocial.getActiveUser()));
+                        redSocial.getActiveUser().addPost(new PostVideo(tituloVideo, calidad, duracion, redSocial.getActiveUser()));
                     } else {
                         System.out.println("Tipo de post inválido.");
                     }
@@ -104,7 +104,7 @@ public class Main {
                 case 2: // Comentar en Post
                     System.out.println("Nombre de usuario del autor del post:");
                     String autor = scanner.nextLine();
-                    Usuario usuarioAutor = redSocial.buscarUsuario(autor);
+                    User usuarioAutor = redSocial.searchUser(autor);
                     if (usuarioAutor != null && !usuarioAutor.getPosts().isEmpty()) {
                         System.out.println("Selecciona el número del post:");
                         for (int i = 0; i < usuarioAutor.getPosts().size(); i++) {
@@ -117,7 +117,7 @@ public class Main {
                             Post post = usuarioAutor.getPosts().get(postIndex);
                             System.out.println("Ingrese su comentario:");
                             String textoComentario = scanner.nextLine();
-                            post.agregarComentario(new Comentario(textoComentario, redSocial.getActiveUser()));
+                            post.addComment(new Comentario(textoComentario, redSocial.getActiveUser()));
                             System.out.println("Comentario añadido.");
                         } else {
                             System.out.println("Índice de post no válido.");
@@ -130,9 +130,9 @@ public class Main {
                 case 3: // Seguir Usuario
                     System.out.println("Ingrese el nombre del usuario a seguir:");
                     String nombreSeguir = scanner.nextLine();
-                    Usuario usuarioSeguir = redSocial.buscarUsuario(nombreSeguir);
+                    User usuarioSeguir = redSocial.searchUser(nombreSeguir);
                     if (usuarioSeguir != null) {
-                        redSocial.getActiveUser().seguirUsuario(usuarioSeguir);
+                        redSocial.getActiveUser().followUser(usuarioSeguir);
                     } else {
                         System.out.println("Usuario no encontrado.");
                     }
@@ -141,24 +141,24 @@ public class Main {
                 case 4: // Dejar de Seguir Usuario
                     System.out.println("Ingrese el nombre del usuario a dejar de seguir:");
                     String nombreDejarSeguir = scanner.nextLine();
-                    Usuario usuarioDejarSeguir = redSocial.buscarUsuario(nombreDejarSeguir);
+                    User usuarioDejarSeguir = redSocial.searchUser(nombreDejarSeguir);
                     if (usuarioDejarSeguir != null) {
-                        redSocial.getActiveUser().dejarDeSeguir(usuarioDejarSeguir);
+                        redSocial.getActiveUser().unfollowUser(usuarioDejarSeguir);
                     } else {
                         System.out.println("Usuario no encontrado.");
                     }
                     break;
 
                 case 5: // Ver Muro
-                    redSocial.mostrarMuro(redSocial.getActiveUser());
+                    redSocial.showWall(redSocial.getActiveUser());
                     break;
 
                 case 6: // Mostrar Usuarios
-                    redSocial.mostrarUsuarios();
+                    redSocial.listUsers();
                     break;
 
                 case 0: // Salir
-                    redSocial.cerrarSesion();
+                    redSocial.logOut();
                     break;
 
                 default:

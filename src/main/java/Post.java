@@ -5,29 +5,29 @@ import java.util.List;
 public abstract class Post {
     protected Date fecha;
     protected List<Comentario> comentarios;
-    protected Usuario usuario;
+    protected User usuario;
 
     public Post() {
-        this.usuario = new Usuario();
+        this.usuario = new User();
         this.fecha = new Date();
         this.comentarios = new ArrayList<>();
     }
 
-    public Post(Usuario usuario1){
+    public Post(User usuario1){
         this.usuario = usuario1;
         this.fecha = new Date();
         this.comentarios = new ArrayList<>();
     }
 
-    public Date getFecha() {
+    public Date getDate() {
         return fecha;
     }
 
-    public List<Comentario> getComentarios() {
+    public List<Comentario> getComment() {
         return comentarios;
     }
 
-    public void agregarComentario(Comentario comentario) {
+    public void addComment(Comentario comentario) {
         comentarios.add(comentario);
     }
 

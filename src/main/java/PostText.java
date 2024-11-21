@@ -1,7 +1,7 @@
-public class PostTexto extends Post {
+public class PostText extends Post {
     private String contenido;
 
-    public PostTexto(String contenido, Usuario usuario1) {
+    public PostText(String contenido, User usuario1) {
         super(usuario1);
         this.contenido = contenido;
     }

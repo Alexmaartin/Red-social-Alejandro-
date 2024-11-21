@@ -3,7 +3,7 @@ public class PostVideo extends Post {
     private String calidad;
     private int duracion;
 
-    public PostVideo(String titulo, String calidad, int duracion, Usuario usuario1) {
+    public PostVideo(String titulo, String calidad, int duracion, User usuario1) {
         super(usuario1);
         this.titulo = titulo;
         this.calidad = calidad;
@@ -12,7 +12,7 @@ public class PostVideo extends Post {
 
     @Override
     public String toString() {
-        return "Post de Video de " + usuario.getNombre() + ": \"" + titulo + "\" [" + calidad + ", " + duracion + " segundos] [" + getFecha() + "]";
+        return "Post de Video de " + usuario.getNombre() + ": \"" + titulo + "\" [" + calidad + ", " + duracion + " segundos] [" + getDate() + "]";
     }
 }
 

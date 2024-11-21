@@ -1,23 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usuario {
+public class User {
     private String nombre;
-    private List<Usuario> siguiendo;
+    private List<User> siguiendo;
     private List<Post> posts;
-    private List<Usuario> comentarios;
+    private List<User> comentarios;
 
-    public Usuario(String nombre) {
+    public User(String nombre) {
         this.nombre = nombre;
         this.siguiendo = new ArrayList<>();
         this.posts = new ArrayList<>();
     }
 
-    public Usuario() {
+    public User() {
 
     }
 
-    public void agregarPost(Post post) {
+    public void addPost(Post post) {
         posts.add(post);
         System.out.println("Post añadido por " + nombre + ": " + post);
     }
@@ -26,10 +26,10 @@ public class Usuario {
         return nombre;
     }
 
-    public List<Usuario> getSiguiendo() {
+    public List<User> getFollowing() {
         return siguiendo;
     }
-    public List<Usuario> getComentarios(){
+    public List<User> getComments(){
         return comentarios;
     }
 
@@ -37,7 +37,7 @@ public class Usuario {
         return posts;
     }
 
-    public void seguirUsuario(Usuario usuario) {
+    public void followUser(User usuario) {
         if (!siguiendo.contains(usuario)) {
             siguiendo.add(usuario);
             System.out.println(nombre + " ahora sigue a " + usuario.getNombre());
@@ -46,7 +46,7 @@ public class Usuario {
         }
     }
 
-    public void dejarDeSeguir(Usuario usuario) {
+    public void unfollowUser(User usuario) {
         if (siguiendo.remove(usuario)) {
             System.out.println(nombre + " ha dejado de seguir a " + usuario.getNombre());
         } else {
