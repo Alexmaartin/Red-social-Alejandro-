@@ -66,7 +66,7 @@ public class RedSocial {
 
     public void showWall(User usuario) {
         if (usuario.getFollowing().isEmpty()) {                                                                         //Si no sigues a nadie u muro está vacio
-            System.out.println("El usuario no sigue a nadie. Su muro está vacío.");
+            System.out.println("El usuario no sigue a nadie. Su muro está vacío.");                                     //Pero aunque no sigas a nadie, te aparecen tus post
             System.out.println("Tus post publicados: ");
             int index = 1;
             for (Post post : usuario.getPosts()) {

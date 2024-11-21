@@ -19,7 +19,6 @@ public class Main {
                     String nombreRegistro = Utils.string("Ingrese el nombre de usuario: ");
                     redSocial.userRegistration(nombreRegistro.trim());   // .trim() para que a la hora de poner el nombre no falle si se cuela un espacio
                     break;
-
                 case 2: // Iniciar Sesión
                     if (redSocial.getActiveUser() == null) {
                         String nombreLogin = Utils.string("Ingrese su nombre de usuario: ");
@@ -27,19 +26,14 @@ public class Main {
                         if (redSocial.getActiveUser() != null) {
                             menuPrincipal(redSocial, scanner);
                         }
-                    } else {
-                        System.out.println("Ya hay una sesión activa. Cierra sesión primero.");
                     }
                     break;
-
                 case 3: // Cerrar Sesión
                     redSocial.logOut();
                     break;
-
                 case 0: // Salir
                     System.out.println("Gracias por usar la red social. ¡Chao! Chao!");
                     break;
-
                 default:
                     System.out.println("Opción no válida.");
             }
@@ -65,9 +59,9 @@ public class Main {
                 case 1: // Publicar Post
                     System.out.println("¿Qué tipo de post desea publicar?");
                     System.out.println("1. Texto");
-                    System.out.println("2. Imagen");
-                    System.out.println("3. Video");
-                    int tipoPost = Utils.integer("Selecciona una opción: ");
+                    System.out.println("2. Imagen");                                                                    //Tres opciones de post imagen texto y video
+                    System.out.println("3. Video");                                                                     //imagen tiene que salir las dimensiones de alto y bajo
+                    int tipoPost = Utils.integer("Selecciona una opción: ");                                            //video tiene que salir duracion y calidad de viseo
 
                     if (tipoPost == 1) {
                         String contenido = Utils.string("Ingrese el contenido del post: ");
