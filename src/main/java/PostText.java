@@ -8,6 +8,6 @@ public class PostText extends Post {
 
     @Override
     public String toString() {
-        return "Post de Texto: \""+ usuario.getNombre()  + contenido + "\" [" + fecha + "]";
+        return "Post de Texto "+ usuario.getNombre() + ": "  + contenido + "\" [" + fecha + "]";
     }
 }

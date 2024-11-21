@@ -12,7 +12,7 @@ public class RedSocial {
 
     public void userRegistration(String nombre) {
         if (searchUser(nombre) == null) {                                                                               //si el nombre de usuario que meto no estaba registrado.
-            User nuevoUsuario = new User(nombre);                                                                 //lo registro en usuario.
+            User nuevoUsuario = new User(nombre);                                                                       //lo registro en usuario.
             usuarios.add(nuevoUsuario);                                                                                 //lo añado a la lista de usuarios.
             System.out.println("Usuario " + nombre + " registrado con éxito.");
         } else {                                                                                                        //en caso de que el nombre de usuario coincida con uno ya existente.
@@ -21,7 +21,7 @@ public class RedSocial {
     }
 
     public User logIn(String nombre) {
-        User usuario = searchUser(nombre);                                                                           //si encuentro el usuario dentro de la lista de usuarios registrados
+        User usuario = searchUser(nombre);                                                                              //si encuentro el usuario dentro de la lista de usuarios registrados
         if (usuario != null) {
             activeUser = usuario;
             System.out.println("Inicio de sesión exitoso. Bienvenido, " + usuario.getNombre());                         //inicio sesión
@@ -67,16 +67,21 @@ public class RedSocial {
     public void showWall(User usuario) {
         if (usuario.getFollowing().isEmpty()) {                                                                         //Si no sigues a nadie u muro está vacio
             System.out.println("El usuario no sigue a nadie. Su muro está vacío.");
+            System.out.println("Tus post publicados: ");
+            int index = 1;
+            for (Post post : usuario.getPosts()) {
+                System.out.println(index + ". " + usuario.getPosts());
+            }                                                                                                           //Ver tus posts aunque no sigas a nadie
             return;
         }
 
         List<Post> muro = new ArrayList<>();
 
-        for (User seguido : usuario.getFollowing()) {                                                                //Aadir todos los post de los usuarios que sigues
+        for (User seguido : usuario.getFollowing()) {                                                                   //Aadir todos los post de los usuarios que sigues
             muro.addAll(seguido.getPosts());
         }
 
-        muro.sort((a, b) -> b.getDate().compareTo(a.getDate()));                                                      //ordenados de mas reciente a mas antiguo
+        muro.sort((a, b) -> b.getDate().compareTo(a.getDate()));                                                        //ordenados de mas reciente a mas antiguo
 
         System.out.println("Muro de " + usuario.getNombre() + ":");
         if (muro.isEmpty()) {

@@ -3,11 +3,11 @@ public class PostVideo extends Post {
     private String calidad;
     private int duracion;
 
-    public PostVideo(String titulo, String calidad, int duracion, User usuario1) {
+    public PostVideo(String titulo, String calidad, String duracion, User usuario1) {
         super(usuario1);
         this.titulo = titulo;
         this.calidad = calidad;
-        this.duracion = duracion;
+        this.duracion = Integer.parseInt(duracion);
     }
 
     @Override

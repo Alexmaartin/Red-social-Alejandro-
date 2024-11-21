@@ -19,7 +19,7 @@ public class User {
 
     public void addPost(Post post) {
         posts.add(post);
-        System.out.println("Post añadido por " + nombre + ": " + post);
+        System.out.println("Has añadido el post \n" + post);
     }
 
     public String getNombre() {

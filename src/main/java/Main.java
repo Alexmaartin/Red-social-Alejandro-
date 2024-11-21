@@ -6,27 +6,23 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int opcion;
-        do {
-            System.out.println("\n=== MENÚ DE RedSocialCampusDual ===");
+        do {                                                                                                            //Meterle do while en vez de while
+            System.out.println("\n=== MENÚ DE RedSocialCampusDual ===");                                                //Crear menu principal de registrarse, iniciar sesión y cerrar sesión
             System.out.println("1. Registrarse");
             System.out.println("2. Iniciar Sesión");
             System.out.println("3. Cerrar Sesión");
             System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            opcion = Utils.integer("Selecciona una opción: ");
 
             switch (opcion) {
                 case 1: // Registrarse
-                    System.out.println("Ingrese el nombre de usuario:");
-                    String nombreRegistro = scanner.nextLine();
+                    String nombreRegistro = Utils.string("Ingrese el nombre de usuario: ");
                     redSocial.userRegistration(nombreRegistro.trim());   // .trim() para que a la hora de poner el nombre no falle si se cuela un espacio
                     break;
 
                 case 2: // Iniciar Sesión
                     if (redSocial.getActiveUser() == null) {
-                        System.out.println("Ingrese su nombre de usuario:");
-                        String nombreLogin = scanner.nextLine();
+                        String nombreLogin = Utils.string("Ingrese su nombre de usuario: ");
                         redSocial.logIn(nombreLogin.trim());  // .trim() (Jose luis)
                         if (redSocial.getActiveUser() != null) {
                             menuPrincipal(redSocial, scanner);
@@ -63,9 +59,7 @@ public class Main {
             System.out.println("5. Ver Muro");
             System.out.println("6. Mostrar Usuarios");
             System.out.println("0. Cerrar Sesión y Volver al Menú de Autenticación");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+            opcion = Utils.integer("Selecciona una opción: ");
 
             switch (opcion) {
                 case 1: // Publicar Post
@@ -73,28 +67,20 @@ public class Main {
                     System.out.println("1. Texto");
                     System.out.println("2. Imagen");
                     System.out.println("3. Video");
-                    int tipoPost = scanner.nextInt();
-                    scanner.nextLine();
+                    int tipoPost = Utils.integer("Selecciona una opción: ");
 
                     if (tipoPost == 1) {
-                        System.out.println("Ingrese el contenido del post:");
-                        String contenido = scanner.nextLine();
+                        String contenido = Utils.string("Ingrese el contenido del post: ");
                         redSocial.getActiveUser().addPost(new PostText(contenido, redSocial.getActiveUser()));
                     } else if (tipoPost == 2) {
-                        System.out.println("Ingrese el título de la imagen:");
-                        String titulo = scanner.nextLine();
-                        System.out.println("Ingrese el ancho de la imagen:");
-                        int ancho = scanner.nextInt();
-                        System.out.println("Ingrese el alto de la imagen:");
-                        int alto = scanner.nextInt();
+                        String titulo = Utils.string("Ingrese el título de la imagen:");
+                        int ancho = Utils.integer("Ingrese el ancho de la imagen:");
+                        int alto = Utils.integer("Ingrese el alto de la imagen:");
                         redSocial.getActiveUser().addPost(new PostImage(titulo, ancho, alto, redSocial.getActiveUser()));
                     } else if (tipoPost == 3) {
-                        System.out.println("Ingrese el título del video:");
-                        String tituloVideo = scanner.nextLine();
-                        System.out.println("Ingrese la calidad del video (Ejemplo: 720p, 1080p, 4K):");
-                        String calidad = scanner.nextLine();
-                        System.out.println("Ingrese la duración del video (en segundos):");
-                        int duracion = scanner.nextInt();
+                        String tituloVideo = Utils.string("Ingrese el título del video: ");
+                        String calidad = Utils.string("Ingrese la calidad del video (Ejemplo: 720p, 1080p, 4K): ");
+                        String duracion = Utils.string("Ingrese la duración del video (en segundos): ");
                         redSocial.getActiveUser().addPost(new PostVideo(tituloVideo, calidad, duracion, redSocial.getActiveUser()));
                     } else {
                         System.out.println("Tipo de post inválido.");
@@ -102,16 +88,14 @@ public class Main {
                     break;
 
                 case 2: // Comentar en Post
-                    System.out.println("Nombre de usuario del autor del post:");
-                    String autor = scanner.nextLine();
-                    User usuarioAutor = redSocial.searchUser(autor);
+                    String autor = Utils.string("Nombre de usuario del autor del post: ");
+                    User usuarioAutor = redSocial.searchUser(autor.trim());
                     if (usuarioAutor != null && !usuarioAutor.getPosts().isEmpty()) {
                         System.out.println("Selecciona el número del post:");
                         for (int i = 0; i < usuarioAutor.getPosts().size(); i++) {
                             System.out.println(i + ". " + usuarioAutor.getPosts().get(i));
                         }
-                        int postIndex = scanner.nextInt();
-                        scanner.nextLine();
+                        int postIndex = Utils.integer();
 
                         if (postIndex >= 0 && postIndex < usuarioAutor.getPosts().size()) {
                             Post post = usuarioAutor.getPosts().get(postIndex);
@@ -128,9 +112,8 @@ public class Main {
                     break;
 
                 case 3: // Seguir Usuario
-                    System.out.println("Ingrese el nombre del usuario a seguir:");
-                    String nombreSeguir = scanner.nextLine();
-                    User usuarioSeguir = redSocial.searchUser(nombreSeguir);
+                    String nombreSeguir = Utils.string("Ingrese el nombre del usuario a seguir: ");
+                    User usuarioSeguir = redSocial.searchUser(nombreSeguir.trim());
                     if (usuarioSeguir != null) {
                         redSocial.getActiveUser().followUser(usuarioSeguir);
                     } else {
@@ -139,9 +122,8 @@ public class Main {
                     break;
 
                 case 4: // Dejar de Seguir Usuario
-                    System.out.println("Ingrese el nombre del usuario a dejar de seguir:");
-                    String nombreDejarSeguir = scanner.nextLine();
-                    User usuarioDejarSeguir = redSocial.searchUser(nombreDejarSeguir);
+                    String nombreDejarSeguir = Utils.string("Ingrese el nombre del usuario a dejar de seguir: ");
+                    User usuarioDejarSeguir = redSocial.searchUser(nombreDejarSeguir.trim());
                     if (usuarioDejarSeguir != null) {
                         redSocial.getActiveUser().unfollowUser(usuarioDejarSeguir);
                     } else {
